@@ -21,17 +21,17 @@ Work reaches the factory through these automations:
 - Slack direct messages to the factory.
 - Linear agent sessions.
 - GitHub agent mentions or assignment on an issue or pull request labeled `factory:bash-8`.
-- GitHub pull request closed or merged, which the factory uses to close out tracked work.
+- A `factory:bash-8`-labeled GitHub pull request being merged, which the factory uses to close out the work item(s) linked in its description. A pull request closed without merging does not complete anything, and a merged pull request with no supported linked work item is a no-op.
 
 ## Workflow
 
 1. A request enters the factory through one of the automations above.
-2. The foreman triages the request when its cause or scope is not yet known, producing a tracked work item.
+2. The foreman triages the request when tracking is warranted — typically when the cause or scope is not yet known. Triage researches the request and creates or adopts a tracked work item; trivial work that does not need tracking may skip triage, or triage may decide no work item is needed.
 3. For work with real ambiguity, the foreman asks the requester if a spec is needed. If they agree, the spec agent interviews the requester and commits a spec to a draft pull request. **The requester must approve the spec before implementation starts.**
 4. The implement agent makes the change, verifies it, and delivers a pull request.
 5. The review agent adversarially reviews the change. Findings that need human judgment are posted on the pull request; unambiguous findings are sent back to the implement agent to fix automatically.
 6. The foreman hands the pull request to the requester. **A human always decides if and when to merge it** — the factory never merges its own pull requests.
-7. When the pull request merges, the factory closes out the tracked work item.
+7. When a `factory:bash-8`-labeled pull request that links a supported work item merges, the factory closes out that work item. Closing a pull request without merging it does not complete the work.
 
 ## Conventions
 
